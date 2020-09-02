@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<article id="post-page">
+    <h1>{{title}}</h1>
+    <time datetime="{{date}}" class="by-line">{{date}}</time>
+    <div class="content">
+
+        {{content | safe}}
+
+    </div>
+</article>
+
+<script type="text/javascript" src="/static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="/static/js/yee_mathjax_config.js"></script>
+
+{% endblock %}

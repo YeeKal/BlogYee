@@ -1,0 +1,64 @@
+/*- Custom style -*/
+p {
+  color: #444444;
+}
+.content a, .content a:hover, .content a:active {
+  cursor: pointer;
+  color: #0366d6;
+  font-weight: normal;
+}
+.content a:hover, .content a:active {
+  text-decoration: underline;
+}
+container a:hover i, .container a:active i {
+  border-bottom: 2px solid #0366d6;
+}
+.document-title {
+  font-family: Lato;
+}
+.category-block-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 80px;
+  text-align: center;
+  margin: 0 auto;
+}
+.category-block {
+  text-align: center;
+  /*设置文本水平居中*/
+  vertical-align: middle;
+  width: 180px;
+  height: 180px;
+  margin-top: 10px;
+  margin-left: 20px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 8px -4px #444444;
+  color: #ffffff;
+  overflow: hidden;
+}
+.category-category:hover {
+  background-color: #d42828;
+}
+.category-block .collection-label a {
+  color: #ffffff;
+}
+.category-block .collection-label a:hover {
+  padding-top: 5px;
+  font-size: larger;
+  opacity: 0.7;
+}
+.codehilite {
+  word-wrap: break-word;
+  color: #141516;
+  margin-bottom: 16px;
+}
+.codehilite pre {
+  margin: 0 0;
+  word-break: normal;
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #141516;
+  border-radius: 3px;
+}

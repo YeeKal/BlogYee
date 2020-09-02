@@ -1,0 +1,46 @@
+#paint-oneday{
+    height: 800px;
+    position: relative;
+    border-radius: 25px;
+    overflow:hidden;
+    margin: 30px auto;
+
+
+}
+#paint-oneday:hover{
+    box-shadow: 0px 10px 10px 10px #353331;
+    transform: translate(-10px );
+}
+
+
+#paint-oneday img{
+    /* height: 500px;
+    border-radius: 25px; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    transform:translate(-50%,-50%);
+
+}
+
+#paint-comment{
+    text-align: center;
+    font-size: 50px;
+    line-height: 100px;
+    color: #b85b10;
+    position: absolute;
+    height:500px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: auto;
+
+    opacity:0.0;
+}
+
+#paint-comment:hover{
+    opacity: 1.0;
+}

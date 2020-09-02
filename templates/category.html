@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{% for category in categorys %}
+    <h2 class="document-title"><a href="#">{{ category.name}}<a></h2>
+    <ul>
+        {% for post in category.files %}
+            <li>
+            <a href="/documents/{{category.name}}/{{ post|slice:"0:-3" }}/">
+                {{post}}
+            </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+{% endblock %}
