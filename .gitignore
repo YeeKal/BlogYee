@@ -1,5 +1,5 @@
 db.sqlite3
-static/documents/*
+static/documents
 media/*
 */__pycache__
 **/__pycache__
