@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from django.urls import path,include
 import post.views as views_post
 import paint.views as views_paint
+import post.views_github as views_github
 
 urlpatterns = [
+    path(r'git_update/',views_github.github_hello),
     path(r'', views_post.displayHome),
     path(r'category/',views_post.categoryView),
     path(r'documents/<path:article_dir>/',views_post.postView),

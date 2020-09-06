@@ -1,5 +1,9 @@
 #paint-oneday{
-    height: 800px;
+    height: 500px;
+    min-height: 500px;
+    width: 500px;
+    min-width: 500px;
+
     position: relative;
     border-radius: 25px;
     overflow:hidden;
@@ -8,7 +12,7 @@
 
 }
 #paint-oneday:hover{
-    box-shadow: 0px 10px 10px 10px #353331;
+    box-shadow: 0px 10px 10px 5px #666565;
     transform: translate(-10px );
 }
 
@@ -43,4 +47,15 @@
 
 #paint-comment:hover{
     opacity: 1.0;
+}
+
+#paint-mask{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    background-color: #444444;
+}
+#paint-mask:hover{
+    opacity: 1;
 }

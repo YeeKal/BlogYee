@@ -6,12 +6,16 @@
     <div class="paint-all">
 
         {% for img in imgs %}
-        <div id="paint-oneday"> 
+        <div id="paint-oneday">
+            <div id=paint-mask>
             <img src="{{img.datas.url}}">
+            
             <div id=paint-comment>
                 {{img.comment}}
             </div>
-
+            
+            </div>
+        
         </div>
         {% endfor %}
 
