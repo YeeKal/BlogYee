@@ -13,6 +13,7 @@ DOCUMENT_PATH=os.path.join(STATIC_PATH,"documents")
 COLORS=["#1abc9c", "#2ecc71","#3498db","#34495e",
         "#27ae60","#8e44ad","#1abc9c", "#2ecc71",
         "#3498db","#34495e","#27ae60","#8e44ad",
+        "#3498db","#34495e","#27ae60","#8e44ad",
         "#3498db","#34495e","#27ae60","#8e44ad"]
 
 
