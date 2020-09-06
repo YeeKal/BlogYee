@@ -24,6 +24,8 @@ def displayHome(request):
         if category.startswith(".") or (not os.path.isdir(os.path.join(DOCUMENT_PATH,category))):
             continue
         category=category.replace('_','')
+        if index > len(COLORS) -1:
+            continue
         cat_info={'name':category,'color':COLORS[index]}
         body['categorys'].append(cat_info)
     return render(request, 'home.html',body)
