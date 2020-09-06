@@ -2,26 +2,59 @@ import os
 import re
 import hashlib
 import hmac
-# import httplib
+from hashlib import sha1
 import json
+import subprocess
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.encoding import force_bytes
+from django.views.decorators.http import require_POST
+
+
+
 
 CUR_PATH=os.path.dirname(__file__)
 STATIC_PATH=os.path.join(CUR_PATH,"../static")
 DOCUMENT_PATH=os.path.join(STATIC_PATH,"documents")
 
+@require_POST  # receive post only
+@csrf_exempt  # this is needed
 def github_hello(request):
-    print("http user agent",request.META)
-    payload=''
-    if 'payload' in request.POST:
-        payload = json.loads(request.POST['payload'])
-    else:
-        payload = json.loads(request.body)
-    print(payload)
+    '''
+    for security, we have to make sure:
+        1. thr seceret key is correct
+    '''
+    header_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
+    if header_signature is None:
+        return HttpResponseForbidden('Permission denied.')
+
+    sha_name, signature = header_signature.split('=')
+    if sha_name != 'sha1':
+        return HttpResponseServerError('Operation not supported.', status=501)
+
+    mac = hmac.new(force_bytes(settings.GITHUB_WEBHOOK_KEY), msg=force_bytes(request.body), digestmod=sha1)
+    if not hmac.compare_digest(force_bytes(mac.hexdigest()), force_bytes(signature)):
+        return HttpResponseForbidden('Permission denied.')
+    
+    # Process the GitHub events
+    event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
+    if event == 'ping':
+        return HttpResponse('ping')
+    elif event == 'push':
+        cd_docu="cd %s"%(DOCUMENT_PATH)+ " &&"
+        cmd=cd_docu + \
+            '''echo "update from github"  &&''' + \
+            '''git fetch origin master &&''' +\
+            '''git merge origin/master &&''' +\
+            '''git rebase origin/master &&''' +\
+            '''echo "update completed!" '''
+        subprocess.call(cmd,shell=True)
+
+        return HttpResponse('update success')
+
     return HttpResponse('pong')
 
 def handle_webhook(event, payload):

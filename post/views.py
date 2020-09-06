@@ -57,7 +57,13 @@ def readPostInfo(md_text):
 
 def categoryView(request):
     body={}
-    categorys=os.listdir(DOCUMENT_PATH)
+    cate=os.listdir(DOCUMENT_PATH)
+    categorys=[]
+    for ca in cate:
+        pa=os.path.join(DOCUMENT_PATH,ca)
+        if os.path.isdir(pa) and (not ca.startswith('.')):
+            categorys.append(ca)
+    print(categorys)
     body['categorys']=[]
     for category in categorys:
         

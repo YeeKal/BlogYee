@@ -130,3 +130,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+GITHUB_WEBHOOK_KEY='hynGKRKuhQ1OqP6yuiQeiDrlOy84RZi4WWZHQ4ZpYitiENghR48sh310RLKxVRF9zoOn1lGXw6ZCtQKIo6mTu6C'
