@@ -21,6 +21,8 @@ def displayHome(request):
     body['categorys']=[]
     categorys=os.listdir(DOCUMENT_PATH)
     for index,category in enumerate(categorys):
+        if category.startswith("."):
+            continue
         category=category.replace('_','')
         cat_info={'name':category,'color':COLORS[index]}
         body['categorys'].append(cat_info)
