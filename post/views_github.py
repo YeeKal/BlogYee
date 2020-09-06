@@ -38,13 +38,29 @@ def github_hello(request):
     mac = hmac.new(force_bytes(settings.GITHUB_WEBHOOK_KEY), msg=force_bytes(request.body), digestmod=sha1)
     if not hmac.compare_digest(force_bytes(mac.hexdigest()), force_bytes(signature)):
         return HttpResponseForbidden('Permission denied.')
-    
+
+    payload={}
+    if 'payload' in request.POST:
+        payload = json.loads(request.POST['payload'])
+    else:
+        payload = json.loads(request.body)
+    if "repository" not in payload:
+        return HttpResponse('unvalid repository hook')
+
+    repo=payload["repository"]["name"]
+    cd_path=''
+    if repo=='YeeKal.github.io':
+        cd_path=os.path.join(DOCUMENT_PATH)
+    elif repo=='BlogYee':
+        cd_path=os.path.join(CUR_PATH,"../.")
+    else:
+        return HttpResponse('unvalid repository name')
     # Process the GitHub events
     event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
     if event == 'ping':
         return HttpResponse('ping')
     elif event == 'push':
-        cd_docu="cd %s"%(DOCUMENT_PATH)+ " &&"
+        cd_docu="cd %s"%(cd_path,)+ " &&" +'''echo "%s" &&'''%(cd_path,)
         cmd=cd_docu + \
             '''echo "update from github"  &&''' + \
             '''git fetch origin master &&''' +\
