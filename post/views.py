@@ -37,8 +37,14 @@ def replaceImgUrl(text,category):
     # 静态图片路径需要带static
     return re.sub(r'''src="(imgs|pics)/(.*?)"''','''src="/static/documents/'''+category+'''/\\1/\\2"''',text,re.S)
 
-def readPostInfo(md_text):
-    info={'title':'title','date':'2020-09-01'}
+def readPostInfo(md_text, article_dir):
+    article_title=article_dir
+    apos=article_dir.find("/")
+    if apos > -1:
+        article_title=article_dir[apos+1:]
+
+
+    info={'title':article_title,'date':'2000-01-01'}
     m=re.match(r'---(.*?)---',md_text,re.S)
     if not m:
         return md_text, info
@@ -87,7 +93,7 @@ def postView(request,article_dir):
     info={}
     if os.path.exists(dirs):
         with open(dirs,'r',encoding='utf-8') as file:
-            text,info=readPostInfo(file.read())
+            text,info=readPostInfo(file.read(),article_dir)
     
     body={}
     text=markdown.markdown( text,
