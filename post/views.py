@@ -67,7 +67,6 @@ def categoryView(request):
         pa=os.path.join(DOCUMENT_PATH,ca)
         if os.path.isdir(pa) and (not ca.startswith('.')):
             categorys.append(ca)
-    print(categorys)
     body['categorys']=[]
     for category in categorys:
         
