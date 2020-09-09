@@ -50,7 +50,7 @@ def github_hello(request):
     repo=payload["repository"]["name"]
     cd_path=''
     if repo=='Doc':
-        cd_path=os.path.join(DOCUMENT_PATH)
+        cd_path=DOCUMENT_PATH
     elif repo=='BlogYee':
         cd_path=os.path.join(CUR_PATH,"../.")
     else:
