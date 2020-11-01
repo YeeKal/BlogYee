@@ -9,7 +9,7 @@
     {% for category in categorys %}
 
         <div class="category-block" style="background-color: {{category.color}};">
-            <h2 class="collection-label"><a href="#">{{ category.name}}<a></h2>
+            <h2 class="collection-label"><a href="/category/{{ category.name}}">{{ category.name}}<a></h2>
         </div>
 
     {% endfor %}

@@ -10,9 +10,9 @@ import markdown
 CUR_PATH=os.path.dirname(__file__)
 STATIC_PATH=os.path.join(CUR_PATH,"../static")
 DOCUMENT_PATH=os.path.join(STATIC_PATH,"documents")
-COLORS=["#1abc9c", "#2ecc71","#3498db","#34495e",
-        "#27ae60","#8e44ad","#1abc9c", "#2ecc71",
-        "#3498db","#34495e","#27ae60","#8e44ad",
+COLORS=["#81c784", "#4caf50","#388e3c","#1b5e20",   # green
+        "#ffd54f","#ffc107","#ffa000", "#ff6f00",
+        "#5b7fa7","#50bda3","#a4def1","#d06270",
         "#3498db","#34495e","#27ae60","#8e44ad",
         "#3498db","#34495e","#27ae60","#8e44ad",
         "#3498db","#34495e","#27ae60","#8e44ad"]
@@ -30,7 +30,12 @@ def displayHome(request):
             continue
         cat_info={'name':category,'color':COLORS[index]}
         body['categorys'].append(cat_info)
+    
+    body['categorys'].sort(key=sortName)
     return render(request, 'home.html',body)
+
+def sortName(item):
+    return item['name']
 
 def replaceImgUrl(text,category):
     index=category.rfind('/')
@@ -66,8 +71,9 @@ def readPostInfo(md_text, article_dir):
     
 
 
-
-def categoryView(request):
+# display files in category
+def categoryView(request,category_name):
+    print(category_name)
     body={}
     cate=os.listdir(DOCUMENT_PATH)
     categorys=[]
@@ -75,6 +81,8 @@ def categoryView(request):
         pa=os.path.join(DOCUMENT_PATH,ca)
         if os.path.isdir(pa) and (not ca.startswith('.')):
             categorys.append(ca)
+    if category_name in categorys:
+        categorys=[category_name]
     body['categorys']=[]
     for category in categorys:
         
@@ -84,9 +92,12 @@ def categoryView(request):
         for file_name in os.listdir(os.path.join(DOCUMENT_PATH,category)):
             if  file_name.endswith('.md'):
                 cat_dict['files'].append(file_name)
+        cat_dict['files'].sort()
         
         body['categorys'].append(cat_dict)
 
+    # 按name排序
+    body['categorys'].sort(key=sortName)
     return render(request, 'category.html',body)
 
 def postView(request,article_dir):

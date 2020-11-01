@@ -25,7 +25,7 @@ import post.views_github as views_github
 urlpatterns = [
     path(r'git_update/',views_github.github_hello),
     path(r'', views_post.displayHome),
-    path(r'category/',views_post.categoryView),
+    path(r'category/<str:category_name>',views_post.categoryView),
     path(r'documents/<path:article_dir>/',views_post.postView),
     path(r'3dview/',views_post.display3d),
     path(r'admin/', admin.site.urls),
