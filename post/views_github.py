@@ -60,7 +60,8 @@ def github_hello(request):
     if event == 'ping':
         return HttpResponse('ping')
     elif event == 'push':
-        return HttpResponse('update success')
+        
+        print("test passed")
         cd_docu="cd %s"%(cd_path,)+ " &&" +'''echo "%s" &&'''%(cd_path,)
         cmd=cd_docu + \
             '''echo "update from github"  &&''' + \
@@ -68,7 +69,9 @@ def github_hello(request):
             '''git merge origin/master &&''' +\
             '''git rebase origin/master &&''' +\
             '''echo "update completed!" '''
-        subprocess.call(cmd,shell=True)
+        # execute in parralel
+        subprocess.Popen(cmd,shell=True)
+        return HttpResponse('update success')
         
 
     return HttpResponse('pong')
